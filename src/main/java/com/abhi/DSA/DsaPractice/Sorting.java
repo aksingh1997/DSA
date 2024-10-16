@@ -2,41 +2,44 @@ package com.abhi.DSA.DsaPractice;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class Sorting {
     List<Integer> list = new ArrayList<>();
 
     public Sorting(){
+
+        System.out.println("------------------sorting-------------------");
         list.add(5);list.add(9);list.add(1);list.add(3);list.add(4);list.add(7);list.add(2);list.add(3);
 
-        // quickSort
-        List<Integer> quickList = new ArrayList<>(list);
-        quickSort(0, quickList.size() - 1, quickList);
-        System.out.println("quick sorting");
-        quickList.stream().forEach(x -> System.out.print(x + " "));
-
-        //merge sort
-        List<Integer> mergeList = new ArrayList<>(list);
-        mergeSort(0, mergeList.size() - 1, mergeList);
-        System.out.println("\nmerge sorting");
-        mergeList.stream().forEach(x -> System.out.print(x + " "));
-
-        //bubble sorting
-        List<Integer> bubbleList = new ArrayList<>(list);
-        bubbleSort(bubbleList);
-        System.out.println("\nbubble sorting");
-        mergeList.stream().forEach(x -> System.out.print(x + " "));
+//        // quickSort
+//        List<Integer> quickList = new ArrayList<>(list);
+//        quickSort(0, quickList.size() - 1, quickList);
+//        System.out.println("quick sorting");
+//        quickList.stream().forEach(x -> System.out.print(x + " "));
+//
+//        //merge sort
+//        List<Integer> mergeList = new ArrayList<>(list);
+//        mergeSort(0, mergeList.size() - 1, mergeList);
+//        System.out.println("\nmerge sorting");
+//        mergeList.stream().forEach(x -> System.out.print(x + " "));
+//
+//        //bubble sorting
+//        List<Integer> bubbleList = new ArrayList<>(list);
+//        bubbleSort(bubbleList);
+//        System.out.println("\nbubble sorting");
+//        mergeList.stream().forEach(x -> System.out.print(x + " "));
+//
+//
+//        //bubble sorting
+//        List<Integer> heapList = new ArrayList<>(list);
+//        heapSort(heapList);
+//        System.out.println("\nheap sorting");
+//        heapList.stream().forEach(x -> System.out.print(x + " "));
 
         //heap sorting
-        //bubble sorting
-        List<Integer> heapList = new ArrayList<>(list);
-        heapSort(heapList);
-        System.out.println("\nheap sorting");
-        heapList.stream().forEach(x -> System.out.print(x + " "));
+        comparator();
 
         System.out.println();
     }
@@ -103,6 +106,32 @@ public class Sorting {
     // heap sort
     private void heapSort(List<Integer> heapList) {
 
+    }
+
+    //comparator
+    public void comparator() {
+        // copying list initialized in constructor
+        ArrayList<Integer> ls = new ArrayList<>(list); // we cannot provide comparator during initialization in arraylist
+        ls.sort((x, y) -> y - x);   //one way of sorting
+        Collections.sort(ls, (x, y) -> x - y);  // other way of sorting
+        ls.forEach(x -> System.out.print(x + " "));
+
+
+        // we need to provide comparator to TreeSet during initialization
+        TreeSet<Integer>  st = new TreeSet<>((x, y) -> {    // We are managing duplicates here as they are not allowed in set
+            if(x.equals(y)) // by default, it will try to subtract one number from another and in case of 0, it will discard that number
+                return 1;
+            else
+                return x - y;
+        });
+        st.add(1);st.add(10);st.add(10);st.add(1);st.add(3);st.add(4);st.add(4);st.add(6);
+        System.out.println("\noutput of treeset::");
+        Iterator<Integer> it = st.iterator();
+        while(it.hasNext()) {
+            System.out.print(it.next() + " ");
+        }
+
+        // remember not to provide comparator in hashset
     }
 
 }
